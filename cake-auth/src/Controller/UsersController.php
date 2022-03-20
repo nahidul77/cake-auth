@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Users Controller
@@ -18,6 +19,11 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['signup']);
+    }
+
     public function index()
     {
         $users = $this->paginate($this->Users);
