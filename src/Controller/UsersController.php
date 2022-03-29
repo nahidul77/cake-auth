@@ -72,18 +72,30 @@ class UsersController extends AppController
 
     public function login()
     {
-        $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        if($this->Auth->user('id')){
+            //check if user is logged in already
+            $this->Flash->warning(__('You are already logged in!'));
+            return $this->redirect(['controller' => 'Users', 'action' => 'index']);
         }
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
+
+        if ($this->request->is('post')) {
+            
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                //redirect
+                $this->Flash->success(__('Login successfull'));
+                return $this->redirect(['controller'=>'Users', 'action' => 'index']);
+            }
+            $this->Flash->error(__('Sorry, The login was not successfull'));
+            
+        }
+    }
+
+    public function logout()
+    {
+        $this->Flash->success(__('You are now logged out'));
+        return $this->redirect($this->Auth->logout());
     }
 
     public function signup()

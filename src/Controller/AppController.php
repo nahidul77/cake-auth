@@ -48,6 +48,10 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login',
             ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login',
+            ],
             'authError' => 'Did you really think you are allowed to see that?',
             'authenticate' => [
                 'Form' => [
@@ -78,5 +82,7 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+
+        $this->set('auth', $this->request->session()->read('Auth'));
     }
 }
