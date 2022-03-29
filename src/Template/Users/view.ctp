@@ -26,11 +26,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($user->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($user->modified) ?></td>
+            <td><?= $this->Time->timeagoinwords($user->created, ['accuracy' => ['week' => 'week']]) ?></td>
         </tr>
     </table>
 </div>

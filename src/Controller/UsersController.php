@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\I18n\Time;
 
 /**
  * Users Controller
@@ -44,6 +45,14 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
+
+        // $checkRegistrationTime = new Time($user->created);
+
+        // if($checkRegistrationTime->wasWithinLast('1 Weeks')){
+        //     debug('User Registerd within 1 weeks ago');
+        // }else{
+        //     debug('User Registerd more than 1 weeks ago');
+        // }
 
         $this->set('user', $user);
         $this->set('_serialize', ['user']);

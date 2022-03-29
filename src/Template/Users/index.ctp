@@ -19,7 +19,6 @@
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('phone') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col" class="actions" width="30%"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -29,8 +28,7 @@
                 <td><?= ++$Key ?></td>
                 <td><?= h($user->email) ?></td>
                 <td><?= h($user->phone) ?></td>
-                <td><?= h($user->created) ?></td>
-                <td><?= h($user->modified) ?></td>
+                <td><?= $this->Time->timeagoinwords($user->created, ['accuracy' => ['week' => 'week']]) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class' => 'btn btn-default']) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'btn btn-default']) ?>
